@@ -26,13 +26,13 @@ $(document).ready(function() {
 			initMin = 1;
 		}
 		timer.text(pad(initMin,2) + ":" + pad(initSec,2));
-	})
+	});
 
 	$('#start').click(function() {
 		$('button').not("#pause").attr("disabled","true").addClass("gray");
 		$('#pause').removeAttr("disabled").removeClass("gray");
 		countDown(0,3);
-	})
+	});
 
 	$('#pause').click(function() {
 		pause();
@@ -44,10 +44,10 @@ $(document).ready(function() {
 	function countDown(minutes, seconds) {
 
 		var timerDone = document.createElement('audio');
-		timerDone.src = 'assets/rossini-la-gazza-ladra-cut.mp3';
+		timerDone.src = 'assets/sounds/rossini-la-gazza-ladra-cut.mp3';
 		timerDone.load();
 		var breakDone = document.createElement('audio');
-		breakDone.src = 'assets/kitchen-timer.mp3';
+		breakDone.src = 'assets/sounds/kitchen-timer.mp3';
 		breakDone.load();
 		var minutes = minutes; 
 		if (seconds == undefined) {
