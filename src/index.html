@@ -26,15 +26,14 @@
 	<meta name="theme-color" content="#ffffff">
 	
 	<link rel="stylesheet" href="styles/style.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="scripts/script.js"></script>	
+
 </head>
 <body>
 	<header>
 		<h1>Pomodoro Timer</h1>		
 	</header>
 	<main>
-		<section id="timers">
+		<!-- <section id="timers">
 			<p class="break">break!</p>
 			<div class="timer" data-type="work"></div>
 		</section>
@@ -44,11 +43,26 @@
 			<button id="subtract">-</button>			
 			<button id="add">+</button>
 		</section>
+	</main> -->
+
+		<div id="pomodoro">
+				<p class="timer"></p>
+				<section id="controls">
+					<button id="start">start</button>
+					<button id="pause" class="gray" disabled>pause</button>
+					<button id="subtract">-</button>			
+					<button id="add">+</button>
+					<button id="reset">reset</button>
+				</section>
+		</div>
 	</main>
 	
 	<footer>
 		
 	</footer>								               
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="scripts/script.js"></script>	
 
 </body>
 </html>

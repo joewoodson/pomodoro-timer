@@ -4,13 +4,14 @@ require('es6-promise').polyfill();
 var gulp = require('gulp'); 
 
 // include plug-ins
+var gutil = require('gulp-util');
 var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
 var image = require('gulp-image');
 var minifyHTML = require('gulp-minify-html');
 var concat = require('gulp-concat');
-var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
+var stripDebug = require('gulp-strip-debug');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
@@ -48,8 +49,7 @@ gulp.task('htmlpage', function() {
 gulp.task('scripts', function() {
   gulp.src('./src/scripts/*.js')
     .pipe(concat('script.js'))
-    .pipe(stripDebug())
-    .pipe(uglify())
+    .pipe(uglify().on('error', gutil.log))
     .pipe(gulp.dest('./build/scripts/'));  
 });
 

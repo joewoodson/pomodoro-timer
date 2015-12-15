@@ -13,9 +13,8 @@ h1
 	text-align: center
 	font-family: $lobster
 	font-size: 3.2em
-	margin: 0
 	margin-top: .5em 
- 
+
 #controls 
 	text-align: center
 	margin: 0 auto
@@ -39,16 +38,12 @@ button
 	&:disabled
 		cursor: default	
 
-#timers 
-	text-align: center
-
-.timer 
+.timer
 	background-image: url(../assets/images/tomato.svg)
 	background-repeat: no-repeat
 	text-align: center
 	padding-top: 100px
-	margin-bottom: 1em
-	display: inline-block
+	margin: 0 auto 1em auto
 	color: #fff
 	font-family: $lobster
 	font-size: 2em	
@@ -56,11 +51,11 @@ button
 	height: 203px
 
 .break
-	z-index: 10
 	visibility: hidden
-	margin: 0
+	text-align: center
 	position: relative
-	top: 100px
+	display: block
+	top: 40px
 	color: #fff
 	font-family: $lobster
 	font-size: 2.4em
@@ -70,7 +65,7 @@ button
 	background-color: red
 	color: #fff
 
-.gray 
+button:disabled 
 	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale") /* Firefox 3.5+ */
 	filter: gray /* IE6-9 */
 	-webkit-filter: grayscale(100%) /* Chrome 19+ & Safari 6+ */
