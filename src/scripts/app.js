@@ -1,9 +1,10 @@
 var pomodoro = {
-	min: 0,
-	sec: 3,
+	initMin: 1,
+	min: 1,
+	sec: 0,
+	timerInterval: '',
 	breakLength: 5,
 	sessions: 3,
-	timerInterval: '',
 	init: function() {
 		this.cacheDom();
 		this.bindEvents();
@@ -20,7 +21,8 @@ var pomodoro = {
 		this.$reset = $('#reset');
 	},
 	bindEvents: function() {
-		this.$start.on('click', this.startTimer.bind(this));
+		this.$start.on('click', this.startTimer.bind(this))
+			.on('click', this.checkSettings.bind(this));
 		this.$pause.on('click', this.pauseTimer.bind(this));
 		this.$subtract.on('click', this.subtractTime.bind(this));
 		this.$add.on('click', this.addTime.bind(this));
@@ -51,6 +53,10 @@ var pomodoro = {
 		this.countDown();
 		this.timerInterval = setInterval(this.countDown.bind(this),1000);
 	},
+	checkSettings: function () {
+		this.breakLength = settings.breakLength;
+		this.sessions = settings.sessions;
+	},
 	pauseTimer: function () {
 		if (this.$timer.prop('state') !== 'paused') {
 			this.$timer.prop('state', 'paused');
@@ -65,6 +71,7 @@ var pomodoro = {
 	},
 	subtractTime: function () {
 		this.min --;
+		this.initMin --;
 		// not allowed below 0
 		if (this.min < 1) {
 			this.min = 1;
@@ -75,6 +82,7 @@ var pomodoro = {
 	},
 	addTime: function () {
 		this.min ++;
+		this.initMin ++;
 		this.render(this.min,this.sec);
 	},
 	resetTimer: function () {
@@ -86,23 +94,36 @@ var pomodoro = {
 		this.render(this.min, this.sec);
 	},
 	countDown: function () {
-		this.sec--;
 
-		if (this.sec === -1) {
+		if (this.min === 0 && this.sec === 0) {
+			this.counterZero();
+		}
+
+		if (this.sec === 0) {
 			this.sec = 59;
 			this.min --;
-		} 
+		}
 
 		this.render(this.min, this.sec);
+
+		this.sec--; 
+
+
+	},
+	counterZero: function () {
+		clearInterval(this.timerInterval);
+
+		if (this.sessions > 1) {
+			this.sessions --;
+			this.min = this.initMin;
+			this.startTimer();
+		} else {
+			alert('all done!');
+		}
+
 	}
 
 };
-
-// i = 7;
-
-// pomodoro.breakLength = i;
-// alert(pomodoro.breakLength);
-pomodoro.init();
 
 var settings = {
 	breakLength: 5,
@@ -110,20 +131,16 @@ var settings = {
 	init: function() {
 		this.cacheDom();
 		this.bindEvents();
-		this.render(this.min,this.sec);
+		this.render();
 	},
 	cacheDom: function() {
 		this.$el = $('#settings');
 		this.$toggleButton = this.$el.children('span');
 
-		this.$breakSettings = this.$el.find('div:eq(0)');
-		this.$sessionSettings = this.$el.find('div:eq(1)');
-
-		this.$breakContainter = this.$breakSettings.find('span');
-		this.$sessionContainer = this.$sessionSettings.find('span');
+		this.$breakContainter = this.$el.find('span:eq(0)');
+		this.$sessionContainer = this.$el.find('span:eq(1)');
 
 		this.$minus = this.$el.find('.fa-minus');
-
 		this.$plus = this.$el.find('.fa-plus');
 	},
 	bindEvents: function() {
@@ -131,7 +148,7 @@ var settings = {
 		this.$minus.on('click', this.subtract.bind(this));
 		this.$plus.on('click', this.add.bind(this));
 	},
-	render: function (breakLength, sessions) {
+	render: function () {
 		if (this.breakLength === 0) {
 			this.breakLength = 1;
 		}
@@ -171,7 +188,10 @@ var settings = {
 };
 
 
+
 settings.init();
+pomodoro.init();
+
 
 
 
