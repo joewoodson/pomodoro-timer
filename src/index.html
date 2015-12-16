@@ -25,36 +25,39 @@
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 	
+	<link rel="stylesheet" href="../src/assets/font-awesome-4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="styles/style.css">
 
 </head>
 <body>
+
+	<div id="settings">
+		<div class="break-duration">
+			<p>Break length:</p>
+			<p><button><i class="fa fa-minus"></button><span class="number"></span><button><i class="fa fa-plus"></button></p>
+		</div>
+		<div class="sessions">
+			<p># of Sessions :</p>
+			<p><button><i class="fa fa-minus"></button><span class="number"></span><button><i class="fa fa-plus"></button></p>
+		</div>
+		<span id="settings-button">settings</span>
+	</div>
+
 	<header>
 		<h1>Pomodoro Timer</h1>		
 	</header>
 	<main>
-		<!-- <section id="timers">
-			<p class="break">break!</p>
-			<div class="timer" data-type="work"></div>
-		</section>
-		<section id="controls">
-			<button id="start">start</button>
-			<button id="pause" class="gray" data-paused="false" disabled>pause</button>
-			<button id="subtract">-</button>			
-			<button id="add">+</button>
-		</section>
-	</main> -->
-
 		<div id="pomodoro">
 				<p class="timer"></p>
 				<section id="controls">
 					<button id="start">start</button>
-					<button id="pause" class="gray" disabled>pause</button>
-					<button id="subtract">-</button>			
-					<button id="add">+</button>
-					<button id="reset">reset</button>
+					<button id="pause" class="gray" disabled><i class="fa fa-pause fa-lg"></i></button>
+					<button id="reset"><i class="fa fa-refresh fa-2x"></i></button>
+					<button id="subtract"><i class="fa fa-minus fa-lg"></i></button>			
+					<button id="add"><i class="fa fa-plus fa-lg"></i></button>
 				</section>
 		</div>
+
 	</main>
 	
 	<footer>

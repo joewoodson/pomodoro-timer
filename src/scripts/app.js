@@ -1,6 +1,8 @@
 var pomodoro = {
-	min: 25,
-	sec: 0,
+	min: 0,
+	sec: 3,
+	breakLength: 5,
+	sessions: 3,
 	timerInterval: '',
 	init: function() {
 		this.cacheDom();
@@ -52,16 +54,24 @@ var pomodoro = {
 	pauseTimer: function () {
 		if (this.$timer.prop('state') !== 'paused') {
 			this.$timer.prop('state', 'paused');
+			this.$pause.find('i').removeClass('fa-pause').addClass('fa-play');
 			clearInterval(this.timerInterval);
 		} else {
 			this.$timer.prop('state', 'work');		
+			this.$pause.find('i').removeClass('fa-play').addClass('fa-pause');			
 			this.countDown();	
 			this.timerInterval = setInterval(this.countDown.bind(this),1000);
 		}
 	},
 	subtractTime: function () {
 		this.min --;
+		// not allowed below 0
+		if (this.min < 1) {
+			this.min = 1;
+		}
+
 		this.render(this.min,this.sec);
+		
 	},
 	addTime: function () {
 		this.min ++;
@@ -77,16 +87,91 @@ var pomodoro = {
 	},
 	countDown: function () {
 		this.sec--;
-		if (this.sec == -1) {
+
+		if (this.sec === -1) {
 			this.sec = 59;
 			this.min --;
 		} 
+
 		this.render(this.min, this.sec);
 	}
 
 };
 
+// i = 7;
+
+// pomodoro.breakLength = i;
+// alert(pomodoro.breakLength);
 pomodoro.init();
+
+var settings = {
+	breakLength: 5,
+	sessions: 3,
+	init: function() {
+		this.cacheDom();
+		this.bindEvents();
+		this.render(this.min,this.sec);
+	},
+	cacheDom: function() {
+		this.$el = $('#settings');
+		this.$toggleButton = this.$el.children('span');
+
+		this.$breakSettings = this.$el.find('div:eq(0)');
+		this.$sessionSettings = this.$el.find('div:eq(1)');
+
+		this.$breakContainter = this.$breakSettings.find('span');
+		this.$sessionContainer = this.$sessionSettings.find('span');
+
+		this.$minus = this.$el.find('.fa-minus');
+
+		this.$plus = this.$el.find('.fa-plus');
+	},
+	bindEvents: function() {
+		this.$toggleButton.on('click', this.toggle.bind(this));
+		this.$minus.on('click', this.subtract.bind(this));
+		this.$plus.on('click', this.add.bind(this));
+	},
+	render: function (breakLength, sessions) {
+		if (this.breakLength === 0) {
+			this.breakLength = 1;
+		}
+		if (this.sessions === 0) {
+			this.sessions = 1;
+		}
+
+		this.$breakContainter.text(this.breakLength);
+		this.$sessionContainer.text(this.sessions);
+	},
+	toggle: function () {
+		this.$el.toggleClass('open');
+	},
+	subtract: function (e) {
+		var counter = $(e.target).closest('div');
+
+		if (counter.hasClass('break-duration')) {
+			this.breakLength --;
+		} else {
+			this.sessions --;
+		}
+
+		this.render();
+	},
+	add: function (e) {
+		var counter = $(e.target).closest('div');
+
+		if (counter.hasClass('break-duration')) {
+			this.breakLength ++;
+		} else {
+			this.sessions ++;
+		}
+
+		this.render();
+	}
+
+};
+
+
+settings.init();
 
 
 
