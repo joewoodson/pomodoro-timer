@@ -2,8 +2,8 @@ var pomodoro = {
 
     kitchenTimer: document.createElement('audio'),
     breakSound: document.createElement('audio'),
-	initMin: 1,
-	min: 1,
+	initMin: 25,
+	min: 25,
 	sec: 0,
 	timerInterval: '',
 	breakLength: 5,
@@ -87,7 +87,7 @@ var pomodoro = {
 			}
 
 			this.$pause.find('i').removeClass('fa-play').addClass('fa-pause');			
-			this.timerInterval = setInterval(this.countDown.bind(this),100);
+			this.timerInterval = setInterval(this.countDown.bind(this),10);
 		}
 	},
 	subtractTime: function () {
@@ -97,6 +97,7 @@ var pomodoro = {
 		// not allowed below 0
 		if (this.min < 1) {
 			this.min = 1;
+			this.initMin = 1;
 		}
 
 		this.render(this.min,this.sec);
@@ -126,7 +127,10 @@ var pomodoro = {
 		if (this.min === 0 && this.sec === 0) {
 			this.i ++;
 			this.counterZero();
+			return;
 		}
+
+		this.sec--; 		
 
 		if (this.sec === -1) {
 			this.sec = 59;
@@ -134,10 +138,6 @@ var pomodoro = {
 		}
 
 		this.render(this.min, this.sec);
-
-		this.sec--; 
-
-
 	},
 	counterZero: function () {
 		clearInterval(this.timerInterval);
@@ -149,14 +149,14 @@ var pomodoro = {
 			this.sessions --;
 			this.$el.prop('mode', 'break');
 			this.min = this.breakLength;
-			this.timerInterval = setInterval(this.countDown.bind(this),100);
+			this.timerInterval = setInterval(this.countDown.bind(this),10);
 		} else if (this.sessions > 0 && this.$el.prop('mode') === 'break') {
 			this.kitchenTimer.play();
 			this.$breakText.css('visibility','hidden');
 			this.$timer.removeClass('gray');
 			this.$el.prop('mode', 'work');
 			this.min = this.initMin;
-			this.timerInterval = setInterval(this.countDown.bind(this),100);
+			this.timerInterval = setInterval(this.countDown.bind(this),10);
 		} else {
 			this.breakSound.play();
 			this.$breakText.css('visibility','hidden');
