@@ -67,7 +67,7 @@ var pomodoro = {
 		this.$el.prop('mode', 'work');
 		this.checkMode();
 		this.countDown();
-		this.timerInterval = setInterval(this.countDown.bind(this),10);
+		this.timerInterval = setInterval(this.countDown.bind(this),1000);
 	},
 	checkSettings: function () {
 		this.breakLength = settings.breakLength;
@@ -87,7 +87,7 @@ var pomodoro = {
 			}
 
 			this.$pause.find('i').removeClass('fa-play').addClass('fa-pause');			
-			this.timerInterval = setInterval(this.countDown.bind(this),10);
+			this.timerInterval = setInterval(this.countDown.bind(this),1000);
 		}
 	},
 	subtractTime: function () {
@@ -149,14 +149,14 @@ var pomodoro = {
 			this.sessions --;
 			this.$el.prop('mode', 'break');
 			this.min = this.breakLength;
-			this.timerInterval = setInterval(this.countDown.bind(this),10);
+			this.timerInterval = setInterval(this.countDown.bind(this),1000);
 		} else if (this.sessions > 0 && this.$el.prop('mode') === 'break') {
 			this.kitchenTimer.play();
 			this.$breakText.css('visibility','hidden');
 			this.$timer.removeClass('gray');
 			this.$el.prop('mode', 'work');
 			this.min = this.initMin;
-			this.timerInterval = setInterval(this.countDown.bind(this),10);
+			this.timerInterval = setInterval(this.countDown.bind(this),1000);
 		} else {
 			this.breakSound.play();
 			this.$breakText.css('visibility','hidden');

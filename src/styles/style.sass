@@ -1,6 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster)
 @import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700)
 
+/////// Media Queries
+$phone-portrait-down: 'max-width: 400px'
+$phone-landscape-down: 'max-width: 568px'
+$tablet-portrait-down: 'max-width: 768px'
+$tablet-landscape-down: 'max-width: 1024px'
+$desktop-down: 'max-width: 1600px'
+
+
 $lobster: 'Lobster'
 $cabin: 'Cabin'
 
@@ -9,6 +17,7 @@ $cabin: 'Cabin'
 	overflow: hidden
 
 body
+	position: relative
 	background-image: url(../assets/images/swirl.png)
 	margin: 0
 
@@ -27,9 +36,6 @@ p, span
 #controls 
 	text-align: center
 	margin: 0 auto
-
-#pomodoro
-
 
 button
 	margin: .9em
@@ -107,8 +113,9 @@ button
 	#settings-button
 		position: absolute
 		top: 0
-		left: 2px
+		left: 0
 		padding: 4px 0 0 8px
+		height: 40px
 	span 
 		position: relative	
 		bottom: -12px
@@ -142,7 +149,7 @@ button
 	width: 50%
 
 footer 
-	position: fixed
+	position: absolute
 	padding: 0 6px 6px 0
 	bottom: 0
 	right: 0
@@ -157,3 +164,37 @@ footer
 			color: lighten(red, 8%)
 		&:visited 
 			color: red
+
+// Mobile Styles
+@media($tablet-landscape-down)
+	html 
+		overflow-y: scroll
+		height: 500px
+	footer
+		display: none
+
+@media($tablet-portrait-down)
+	.number 
+		font-size: 1.8em !important
+	button 
+		width: auto
+		margin: .9em .4em
+	#reset 
+		position: absolute
+		top: 0
+		right: 0
+		padding: 6px 8px 0 0
+		width: auto
+		i 
+			font-size: 25px !important
+
+@media($phone-portrait-down)
+	.fa 
+		font-size: .8em !important
+	#settings button 
+		margin: 0
+		margin-bottom: 25px
+	#settings div p
+		padding-top: 30px
+		&:last-child 
+			padding-top: 0 !important
